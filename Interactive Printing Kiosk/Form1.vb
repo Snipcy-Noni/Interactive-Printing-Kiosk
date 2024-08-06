@@ -9,6 +9,7 @@ Public Class Form1
         ListViewFiles.View = View.Details
         ListViewFiles.Columns.Add("File Name", -2, HorizontalAlignment.Left)
         InitializeWatcher()
+        detectRemoval()
     End Sub
 
     Private Sub InitializeWatcher()
@@ -21,6 +22,19 @@ Public Class Form1
             watcher.Start()
         Catch ex As Exception
             MsgBox("Intialize  Watcher: ", ex.ToString)
+        End Try
+    End Sub
+
+    Private Sub detectRemoval()
+        Try
+            Dim query As New WqlEventQuery("SELECT * FROM Win32_VolumeChangeEvent WHERE EventType = 3")
+            watcher = New ManagementEventWatcher(query)
+
+            AddHandler watcher.EventArrived, AddressOf OnVolumeRemoveEvent
+
+            watcher.Start()
+        Catch ex As Exception
+            MsgBox("Removal Watcher: ", ex.ToString)
         End Try
     End Sub
 
@@ -38,6 +52,22 @@ Public Class Form1
         End Try
     End Sub
 
+    Private Sub OnVolumeRemoveEvent(sender As Object, e As EventArrivedEventArgs)
+        Try
+            Dim getDriverLetter As String = e.NewEvent.Properties("DriveName").Value.ToString
+            If Me.InvokeRequired Then
+                Me.Invoke(New Action(Sub()
+                                         ListViewFiles.Items.Clear()
+                                         MsgBox("Drive " & getDriverLetter & " has been removed.")
+                                     End Sub))
+            Else
+                ListViewFiles.Items.Clear()
+                MsgBox("Drive " & getDriverLetter & " has been removed.")
+            End If
+        Catch ex As Exception
+            MsgBox("Removal: ", ex.ToString)
+        End Try
+    End Sub
 
     Public Function IsFlashDrive(driveLetter As String) As Boolean
         Try
@@ -65,17 +95,17 @@ Public Class Form1
 
     Private Sub TraverseDirectories(fileDirectory As String)
         Try
-            Dim files As String() = Directory.GetFiles(fileDirectory)
-
-            For Each file As String In files
-                Dim fileName As String = Path.GetFileName(file)
-                ListViewFiles.Items.Add(New ListViewItem(file))
-            Next
-
-
             Dim subDirectories As String() = Directory.GetDirectories(fileDirectory)
             For Each subFiles As String In subDirectories
                 TraverseDirectories(subFiles)
+            Next
+
+            Dim files As String() = Directory.GetFiles(fileDirectory)
+            For Each file As String In files
+                If IsvalidFile(file) Then
+                    Dim fileName As String = Path.GetFileName(file)
+                    ListViewFiles.Items.Add(fileName)
+                End If
             Next
         Catch ex As Exception
             MsgBox("Error traversing directories: ", ex.ToString)

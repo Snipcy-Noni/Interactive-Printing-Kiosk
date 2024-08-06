@@ -10,3 +10,5 @@ D:\Default VB Project\Project\Interactive Printing Kiosk\Interactive Printing Ki
 D:\Default VB Project\Project\Interactive Printing Kiosk\Interactive Printing Kiosk\obj\Debug\Interactive Printing Kiosk.exe
 D:\Default VB Project\Project\Interactive Printing Kiosk\Interactive Printing Kiosk\obj\Debug\Interactive Printing Kiosk.xml
 D:\Default VB Project\Project\Interactive Printing Kiosk\Interactive Printing Kiosk\obj\Debug\Interactive Printing Kiosk.pdb
+D:\Default VB Project\Project\Interactive Printing Kiosk\Interactive Printing Kiosk\bin\Debug\Guna.UI2.dll
+D:\Default VB Project\Project\Interactive Printing Kiosk\Interactive Printing Kiosk\obj\Debug\Interactive Printing Kiosk.vbproj.CopyComplete
