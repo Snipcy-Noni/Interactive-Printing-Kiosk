@@ -1,0 +1,12 @@
+D:\Default VB Project\Project\Interactive Printing Kiosk\Interactive Printing Kiosk\bin\Debug\Interactive Printing Kiosk.exe.config
+D:\Default VB Project\Project\Interactive Printing Kiosk\Interactive Printing Kiosk\bin\Debug\Interactive Printing Kiosk.exe
+D:\Default VB Project\Project\Interactive Printing Kiosk\Interactive Printing Kiosk\bin\Debug\Interactive Printing Kiosk.pdb
+D:\Default VB Project\Project\Interactive Printing Kiosk\Interactive Printing Kiosk\bin\Debug\Interactive Printing Kiosk.xml
+D:\Default VB Project\Project\Interactive Printing Kiosk\Interactive Printing Kiosk\obj\Debug\Interactive Printing Kiosk.vbproj.AssemblyReference.cache
+D:\Default VB Project\Project\Interactive Printing Kiosk\Interactive Printing Kiosk\obj\Debug\Interactive_Printing_Kiosk.Form1.resources
+D:\Default VB Project\Project\Interactive Printing Kiosk\Interactive Printing Kiosk\obj\Debug\Interactive_Printing_Kiosk.Resources.resources
+D:\Default VB Project\Project\Interactive Printing Kiosk\Interactive Printing Kiosk\obj\Debug\Interactive Printing Kiosk.vbproj.GenerateResource.cache
+D:\Default VB Project\Project\Interactive Printing Kiosk\Interactive Printing Kiosk\obj\Debug\Interactive Printing Kiosk.vbproj.CoreCompileInputs.cache
+D:\Default VB Project\Project\Interactive Printing Kiosk\Interactive Printing Kiosk\obj\Debug\Interactive Printing Kiosk.exe
+D:\Default VB Project\Project\Interactive Printing Kiosk\Interactive Printing Kiosk\obj\Debug\Interactive Printing Kiosk.xml
+D:\Default VB Project\Project\Interactive Printing Kiosk\Interactive Printing Kiosk\obj\Debug\Interactive Printing Kiosk.pdb
