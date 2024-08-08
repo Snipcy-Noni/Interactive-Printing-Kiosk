@@ -84,10 +84,17 @@
       <DependentUpon>Form1.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\User Files.Designer.vb">
+      <DependentUpon>User Files.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\User Files.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -99,16 +106,37 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="User Control\file_display.Designer.vb">
+      <DependentUpon>file_display.vb</DependentUpon>
+    </Compile>
+    <Compile Include="User Control\file_display.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="User Control\loading_animation.Designer.vb">
+      <DependentUpon>loading_animation.vb</DependentUpon>
+    </Compile>
+    <Compile Include="User Control\loading_animation.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\User Files.resx">
+      <DependentUpon>User Files.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User Control\file_display.resx">
+      <DependentUpon>file_display.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User Control\loading_animation.resx">
+      <DependentUpon>loading_animation.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -122,6 +150,21 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-ppt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-pdf.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-doc.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-power-point.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-folder-96.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

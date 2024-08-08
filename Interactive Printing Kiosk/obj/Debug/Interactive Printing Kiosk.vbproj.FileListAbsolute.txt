@@ -12,3 +12,6 @@ D:\Default VB Project\Project\Interactive Printing Kiosk\Interactive Printing Ki
 D:\Default VB Project\Project\Interactive Printing Kiosk\Interactive Printing Kiosk\obj\Debug\Interactive Printing Kiosk.pdb
 D:\Default VB Project\Project\Interactive Printing Kiosk\Interactive Printing Kiosk\bin\Debug\Guna.UI2.dll
 D:\Default VB Project\Project\Interactive Printing Kiosk\Interactive Printing Kiosk\obj\Debug\Interactive Printing Kiosk.vbproj.CopyComplete
+D:\Default VB Project\Project\Interactive Printing Kiosk\Interactive Printing Kiosk\obj\Debug\Interactive_Printing_Kiosk.User_Files.resources
+D:\Default VB Project\Project\Interactive Printing Kiosk\Interactive Printing Kiosk\obj\Debug\Interactive_Printing_Kiosk.file_display.resources
+D:\Default VB Project\Project\Interactive Printing Kiosk\Interactive Printing Kiosk\obj\Debug\Interactive_Printing_Kiosk.loading_animation.resources

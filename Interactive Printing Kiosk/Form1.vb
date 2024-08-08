@@ -1,40 +1,40 @@
-﻿Imports System.ComponentModel
-Imports System.IO
+﻿Imports System.IO
 Imports System.Management
 
 Public Class Form1
-    Private watcher As ManagementEventWatcher
+    Private volumeChangeWatcher As ManagementEventWatcher
+    Private volumeRemovalWatcher As ManagementEventWatcher
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles Me.Load
-        ListViewFiles.View = View.Details
-        ListViewFiles.Columns.Add("File Name", -2, HorizontalAlignment.Left)
         InitializeWatcher()
-        detectRemoval()
+        'DetectRemoval()
     End Sub
 
     Private Sub InitializeWatcher()
         Try
             Dim query As New WqlEventQuery("SELECT * FROM Win32_VolumeChangeEvent WHERE EventType = 2")
-            watcher = New ManagementEventWatcher(query)
 
-            AddHandler watcher.EventArrived, AddressOf OnVolumeChangeEvent
+            volumeChangeWatcher = New ManagementEventWatcher(query)
 
-            watcher.Start()
+            AddHandler volumeChangeWatcher.EventArrived, AddressOf OnVolumeChangeEvent
+
+            volumeChangeWatcher.Start()
         Catch ex As Exception
-            MsgBox("Intialize  Watcher: ", ex.ToString)
+            MsgBox("Something when wrong with arrive watcher : \n" & ex.Message)
         End Try
     End Sub
 
-    Private Sub detectRemoval()
+    Private Sub DetectRemoval()
         Try
             Dim query As New WqlEventQuery("SELECT * FROM Win32_VolumeChangeEvent WHERE EventType = 3")
-            watcher = New ManagementEventWatcher(query)
 
-            AddHandler watcher.EventArrived, AddressOf OnVolumeRemoveEvent
+            volumeRemovalWatcher = New ManagementEventWatcher(query)
 
-            watcher.Start()
+            AddHandler volumeRemovalWatcher.EventArrived, AddressOf OnVolumeRemoveEvent
+
+            volumeRemovalWatcher.Start()
         Catch ex As Exception
-            MsgBox("Removal Watcher: ", ex.ToString)
+            MsgBox("Something when wrong with removal watcher : \n" & ex.Message)
         End Try
     End Sub
 
@@ -44,83 +44,58 @@ Public Class Form1
 
 
             If IsFlashDrive(getDriveLetter) Then
-                PopulateFiles(getDriveLetter)
-            End If
+                Using dialog As New User_Files()
+                    dialog.ShowDialog()
+                End Using
 
+            End If
         Catch ex As Exception
-            MsgBox("On Volume Change Event: ", ex.ToString)
+            MsgBox("Something when wrong with volume change event : \n" & ex.Message)
         End Try
     End Sub
 
     Private Sub OnVolumeRemoveEvent(sender As Object, e As EventArrivedEventArgs)
         Try
-            Dim getDriverLetter As String = e.NewEvent.Properties("DriveName").Value.ToString
+            Dim getDriveLetter As String = e.NewEvent.Properties("DriveName").Value.ToString()
+
+            ' Ensure thread safety when accessing UI elements
             If Me.InvokeRequired Then
                 Me.Invoke(New Action(Sub()
-                                         ListViewFiles.Items.Clear()
-                                         MsgBox("Drive " & getDriverLetter & " has been removed.")
+                                         MessageBox.Show("Drive " & getDriveLetter & " has been removed.", "Drive Removed", MessageBoxButtons.OK, MessageBoxIcon.Information)
                                      End Sub))
             Else
-                ListViewFiles.Items.Clear()
-                MsgBox("Drive " & getDriverLetter & " has been removed.")
+                MessageBox.Show("Drive " & getDriveLetter & " has been removed.", "Drive Removed", MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
         Catch ex As Exception
-            MsgBox("Removal: ", ex.ToString)
+            MessageBox.Show("Removal: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
+
+    'Check if user insert a removable drive
     Public Function IsFlashDrive(driveLetter As String) As Boolean
         Try
             Dim driveInfo As New DriveInfo(driveLetter)
-
             Return driveInfo.DriveType = DriveType.Removable
         Catch ex As Exception
-            MsgBox("Is Flash drive: ", ex.ToString)
+            MsgBox("Something when wrong with flash drive check: \n" & ex.Message)
         End Try
     End Function
 
-    Public Sub PopulateFiles(filePath As String)
-        If Me.InvokeRequired Then
-            Me.Invoke(New Action(Of String)(AddressOf PopulateFiles), filePath)
-            Return
+    Private Sub Form1_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        If volumeChangeWatcher IsNot Nothing Then
+            volumeChangeWatcher.Stop()
+            volumeChangeWatcher.Dispose()
         End If
-        Try
-            ListViewFiles.Items.Clear()
-            TraverseDirectories(filePath)
-        Catch ex As Exception
-            ' Handle any exceptions that might occur
-            MessageBox.Show("Error populating files: " & ex.Message)
-        End Try
+        If volumeRemovalWatcher IsNot Nothing Then
+            volumeRemovalWatcher.Stop()
+            volumeRemovalWatcher.Dispose()
+        End If
     End Sub
 
-    Private Sub TraverseDirectories(fileDirectory As String)
-        Try
-            Dim subDirectories As String() = Directory.GetDirectories(fileDirectory)
-            For Each subFiles As String In subDirectories
-                TraverseDirectories(subFiles)
-            Next
-
-            Dim files As String() = Directory.GetFiles(fileDirectory)
-            For Each file As String In files
-                If IsvalidFile(file) Then
-                    Dim fileName As String = Path.GetFileName(file)
-                    ListViewFiles.Items.Add(fileName)
-                End If
-            Next
-        Catch ex As Exception
-            MsgBox("Error traversing directories: ", ex.ToString)
-        End Try
-    End Sub
-
-    Public Function IsvalidFile(filepath As String) As Boolean
-        Dim validExtensions As String() = {".docx", ".pdf", "pptx"}
-        Dim fileExtension As String = Path.GetExtension(filepath).ToLower()
-        Return validExtensions.Contains(fileExtension)
-    End Function
-
-
-    Private Sub Form1_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
-        watcher.Stop()
-        watcher.Dispose()
-    End Sub
+    'Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    '    Using dialog As New User_Files()
+    '        dialog.ShowDialog()
+    '    End Using
+    'End Sub
 End Class

@@ -22,5 +22,30 @@ Interactive Printing Kiosk
   resource lookups using this strongly typed resource class.
 </summary>
 </member>
+<member name="P:Interactive_Printing_Kiosk.My.Resources.Resources.icon_doc">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Interactive_Printing_Kiosk.My.Resources.Resources.icon_folder">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Interactive_Printing_Kiosk.My.Resources.Resources.icon_pdf">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Interactive_Printing_Kiosk.My.Resources.Resources.icon_ppt">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Interactive_Printing_Kiosk.My.Resources.Resources.ppt_gif">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
 </members>
 </doc>
